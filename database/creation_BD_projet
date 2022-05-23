@@ -1,49 +1,51 @@
-create type etat as enum('neuf', 'bon état', 'très bon état', 'mauvais état');
-create type type as enum ('maison', 'appartement');
-create table Adresse(id_adresse int,
+CREATE DATABASE db_project;
+use db_project;
+DROP TABLE ADRESSE;
+drop table Personne;
+drop table Bien_immobilier;
+drop table Garage;
+drop table Transaction;
+drop table Visite;
+create table Adresse(id_adresse int PRIMARY KEY NOT NULL auto_increment,
 					rue varchar(55),
 					ville varchar(55),
 					code_postal int);
 
 create table Personne(
-		id_personne int,
+		id_personne int PRIMARY KEY NOT NULL auto_increment,
 		nom varchar(15),
-		prenom varchar(30),
-		primary key(id_personne)
+		prenom varchar(30)
 	);
 
-create table Bien_immobilier(id_bien int,
-							 disponibilité boolean,
+create table Bien_immobilier(id_bien int PRIMARY KEY NOT NULL auto_increment,
+							 disponibilite boolean,
 							 nb_piece int,
 							 superficie int,
-							 prix_vente money,
-							 date_disponibilité date,
-							 etat etat,
-							 type_bien type,
+							 prix_vente int,
+							 date_disponibilite date,
+							 etat ENUM ('neuf', 'bon état', 'très bon état', 'mauvais état'),
+							 type_bien ENUM ('maison', 'appartement'),
 							 id_adresse int,
-							 id_propriétaire int,
-							 primary key(id_bien),
-							 foreign key(id_adresse) references Adresse on delete cascade on update cascade,
-							 foreign key(id_propriétaire) references Personne on delete cascade on update cascade		 
-
+							 id_proprietaire int,
+							 foreign key(id_adresse) references Adresse(id_adresse) on delete cascade on update cascade,
+							 foreign key(id_proprietaire) references Personne(id_personne) on delete cascade on update cascade		 
 );
-create table Garage(num int,
-					id_adresse int,
+create table Garage(num int PRIMARY KEY NOT NULL auto_increment,
+					id_adresse int ,
 					id_bien_immobilier int,
-					primary key(num),
-					foreign key(id_adresse) references Adresse on delete cascade on update cascade,
-					foreign key(id_bien_immobilier) references Bien_immobilier on delete cascade on update cascade		 
+					foreign key(id_adresse) references Adresse(id_adresse) on delete cascade on update cascade,
+					foreign key(id_bien_immobilier) references Bien_immobilier(id_bien) on delete cascade on update cascade		 
 );
 
 create table Transaction(commission int,
-						 prix_vente money,
+						 prix_vente int,
 						 date_transac date,
 						 id_client int,
 						 id_propriétaire int, 
-						 foreign key(id_client) references Personne on delete cascade on update cascade,
-						 foreign key(id_propriétaire) references Personne on delete cascade on update cascade	
+						 foreign key(id_client) references Personne(id_personne) on delete cascade on update cascade,
+						 foreign key(id_propriétaire) references Personne(id_personne) on delete cascade on update cascade	
 );
 create table Visite(date_visite date,
 					id_client int,
-					foreign key(id_client) references Personne on delete cascade on update cascade
+					foreign key(id_client) references Personne(id_personne) on delete cascade on update cascade
 				   );
