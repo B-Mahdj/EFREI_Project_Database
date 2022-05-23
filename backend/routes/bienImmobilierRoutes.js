@@ -4,5 +4,9 @@ const router = express.Router();
 const bienImmobilierCtrl = require('../controllers/bienImmobilierControllers');
 
 router.get('/', bienImmobilierCtrl.getAllBienImmobilier);
+router.post('/', bienImmobilierCtrl.createBienImmobilier);
+router.get('/id', bienImmobilierCtrl.getBienImmobilierById);
+router.put('/id', bienImmobilierCtrl.updateBienImmobilierById);
+router.delete('/id', bienImmobilierCtrl.deleteBienImmobilierById);
 
 module.exports = router;
