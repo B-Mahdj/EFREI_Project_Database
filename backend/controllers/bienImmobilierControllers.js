@@ -19,12 +19,12 @@ exports.createBienImmobilier = (req, res, next) => {
     superficie = req.query.superficie;
     prix_vente = req.query.prix_vente;
     date_disponibilite = req.query.prix_vente;
-    id_etat = req.query.id_etat;
+    etat = req.query.etat;
     type_bien = req.query.type_bien;
     id_adresse = req.query.id_adresse;
     id_proprietaire = req.query.id_proprietaire;
-    if(disponibilite && nb_piece && superficie && prix_vente && date_disponibilite && id_etat && type_bien && id_adresse && id_proprietaire){
-        mysql.query('INSERT INTO Bien_immobilier VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [disponibilite, nb_piece, superficie, prix_vente, date_disponibilite, id_etat, type_bien, id_adresse, id_proprietaire], (err, result) => {
+    if(disponibilite && nb_piece && superficie && prix_vente && date_disponibilite && etat && type_bien && id_adresse && id_proprietaire){
+        mysql.query('INSERT INTO Bien_immobilier (disponibilite, nb_piece, superficie, prix_vente, date_disponibilite, etat, type_bien, id_adresse, id_proprietaire) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [disponibilite, nb_piece, superficie, prix_vente, date_disponibilite, etat, type_bien, id_adresse, id_proprietaire], (err, result) => {
             if (!err) {
                 res.status(200).json({
                     message: 'Bien immobilier créé !'
