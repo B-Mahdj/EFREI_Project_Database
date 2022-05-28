@@ -17,6 +17,7 @@ create table Bien_immobilier(id_bien int,
 							 date_disponibilité date,
 							 etat etat,
 							 type_bien type,
+							 nb_garage int,
 							 id_propriétaire int,
 							 adresse varchar(55),
 							 primary key(id_bien),
@@ -33,12 +34,6 @@ create table Transaction(commission int,
 						 foreign key(id_client) references Personne on delete cascade on update cascade,
 						 foreign key(id_propriétaire) references Personne on delete cascade on update cascade,
 						 foreign key(id_bien) references Bien_immobilier on delete cascade on update cascade
-);
-
-create table Garage(num int,
-					id_propriétaire int,
-					primary key(num),
-					foreign key(id_propriétaire) references Personne on delete cascade on update cascade		 
 );
 
 create table Visite(date_visite date,
