@@ -11,35 +11,38 @@ function classNames(...classes) {
 }
 
 export default function Example(props) {
-    
+
     var navigation = [
-        { name: 'Tableau de bord', href: '/'},
-        { name: 'Liste des biens', href: '/liste'},
-        { name: 'Ventes', href: '/vente'}
+        { name: 'Tableau de bord', href: '/' },
+        { name: 'Liste des biens', href: '/liste' },
+        { name: 'Ventes', href: '/vente' },
+        { name: 'Ajouter un bien', href: '/add' },
+        { name: 'Ajouter un Personne', href: '/addPersonne' },
+        { name: 'Créer une visite', href: '/visite' }
     ]
-    
-    if(props.name == "home"){
-        navigation = [
-            { name: 'Tableau de bord', href: '/', current: true},
-            { name: 'Liste des biens', href: '/liste', current: false},
-            { name: 'Ventes', href: '/vente', current: false}
-        ]
+    switch (props.name) {
+        case "home":
+            navigation[0] = { name: 'Tableau de bord', href: '/', current: true }
+            break;
+        case "liste":
+            navigation[1] = { name: 'Liste des biens', href: '/liste', current: true }
+            break;
+        case "vente":
+            navigation[2] = { name: 'Ventes', href: '/vente', current: true }
+            break;
+        case "add":
+            navigation[3] = { name: 'Ajouter un bien', href: '/add', current: true }
+            break;
+        case "addpersonne":
+            navigation[4] = { name: 'Ajouter une personne', href: '/addPersonne', current: true }
+            break;
+        case "visite":
+            navigation[5] = { name: 'Créer une visite', href: '/visite', current: true }
+            break;
+        default:
+            break;
     }
-    else if(props.name == "liste"){
-        navigation = [
-            { name: 'Tableau de bord', href: '/', current: false},
-            { name: 'Liste des biens', href: '/liste', current: true},
-            { name: 'Ventes', href: '/vente', current: false}
-        ]
-    }
-    else if(props.name == "vente"){
-        navigation = [
-            { name: 'Tableau de bord', href: '/', current: false},
-            { name: 'Liste des biens', href: '/liste', current: false},
-            { name: 'Ventes', href: '/vente', current: true}
-        ]
-    }
-    
+
 
     return (
         <Disclosure as="nav" className="bg-gray-800">
@@ -94,10 +97,7 @@ export default function Example(props) {
                                     type="button"
                                     className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                                 >
-                                    <a href = '/add'>
-                                    <span className="sr-only"></span>
-                                    <PlusIcon className="h-8 w-8 rounded-full" aria-hidden="true" />
-                                    </a>
+
 
                                 </button>
                             </div>

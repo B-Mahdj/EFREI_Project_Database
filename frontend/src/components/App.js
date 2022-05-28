@@ -6,6 +6,8 @@ import Ajout from './add';
 import Modal from './modal';
 import Vente from './vente';
 import Dashboard from './dashboard';
+import AjoutPersonne from './addPersonne';
+import Visite from './visite';
 
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
 
@@ -21,6 +23,9 @@ function App() {
               <Route path="/add" element={<Add />} />
               <Route path="/vente" element={<Ventes />} />
               <Route path="/voir/:name" element={<Voir />} />
+              <Route path="/addPersonne" element={<PersonneAdd />} />
+              <Route path="/visite" element={<CreerVisite />} />
+
             </Routes>
           </div>
         </Router>
@@ -79,6 +84,24 @@ const Ventes= () => {
     <div>
       <Banner name="vente"></Banner>
       <Vente/>
+    </div>
+  );
+};
+
+const PersonneAdd = () => {
+  return (
+    <div>
+      <Banner name="addpersonne"></Banner>
+      <AjoutPersonne/>
+    </div>
+  );
+};
+
+const CreerVisite = () => {
+  return (
+    <div>
+      <Banner name="visite"></Banner>
+      <Visite/>
     </div>
   );
 };

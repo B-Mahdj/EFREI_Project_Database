@@ -14,16 +14,19 @@ exports.getAllPersonne = (req, res, next) => {
 }
 
 exports.createPersonne = (req, res, next) => {
-    nom = req.query.nom;
-    prenom = req.query.prenom;
+    console.log(req.body)
+    const nom = req.body.nom;
+    const prenom = req.body.prenom;
     if (nom && prenom) {
-        mysql.query('INSERT INTO Personne VALUES (?, ?)', [nom, prenom], (err, result) => {
+        mysql.query('INSERT INTO Personne (nom, prenom) VALUES (?, ?)', [nom, prenom], (err, result) => {
             if (!err) {
+                console.log("Personne crée")
                 res.status(200).json({
                     message: 'Personne créée !'
                 });
             }
             else {
+                console.log(err);
                 res.status(500).json(err);
             }
         });

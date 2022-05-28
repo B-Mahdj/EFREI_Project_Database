@@ -1,12 +1,21 @@
-import { CashIcon } from '@heroicons/react/outline';
-import Datepicker from '@themesberg/tailwind-datepicker/Datepicker';
+import { useState } from "react";
+import Axios from 'axios';
 
-function add() {
+
+
+
+
+function AddBien() {
+
+    const[personneListe, setPersonneListe] = useState([]);
+    Axios.get('http://localhost:3001/api/personne/', {
+        }).then((response) => {
+            setPersonneListe(response.data);
+        });
+
+
 
     return (
-
-
-
         <div class="flex justify-center items-center my-10">
             <div class="flex flex-col max-w-lg px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
                 <div class="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
@@ -14,10 +23,15 @@ function add() {
                 </div>
                 <div class="p-6">
                     <form action="#">
-                    <div class="flex flex-col mb-2">
+                        <div class="flex flex-col mb-2">
                             <div class=" relative ">
+                                <select class="rounded-lg border-transparent flex-2 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Type">
+                                    <option disabled selected>Propriétaire</option>
+                                    {personneListe.map((val, key) => {
+                                        return <option>{val.id_personne + ". " + val.nom + " " + val.prenom}</option>
+                                    })}
+                                </select>
 
-                                <input type="text" id="create-account-first-name" class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="Nom du propriétaire" placeholder="Nom du propriétaire" />
                             </div>
                         </div>
                         <div class="flex flex-col mb-2">
@@ -26,7 +40,7 @@ function add() {
                             </div>
                         </div>
 
-                        
+
                         <div class="flex flex-col mb-2">
                             <div class=" relative ">
                                 <div>
@@ -63,7 +77,7 @@ function add() {
                                 <option>Très bon état</option>
                                 <option>Mauvais état</option>
                             </select>
-                            
+
 
                         </div>
                         <div class="flex gap-2 mb-2">
@@ -83,7 +97,7 @@ function add() {
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.736 6.979C9.208 6.193 9.696 6 10 6c.304 0 .792.193 1.264.979a1 1 0 001.715-1.029C12.279 4.784 11.232 4 10 4s-2.279.784-2.979 1.95c-.285.475-.507 1-.67 1.55H6a1 1 0 000 2h.013a9.358 9.358 0 000 1H6a1 1 0 100 2h.351c.163.55.385 1.075.67 1.55C7.721 15.216 8.768 16 10 16s2.279-.784 2.979-1.95a1 1 0 10-1.715-1.029c-.472.786-.96.979-1.264.979-.304 0-.792-.193-1.264-.979a4.265 4.265 0 01-.264-.521H10a1 1 0 100-2H8.017a7.36 7.36 0 010-1H10a1 1 0 100-2H8.472c.08-.185.167-.36.264-.521z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
-                                        <input type="number" min="0"  name="price"   class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent pl-10  pb-3" placeholder="Prix" />
+                                        <input type="number" min="0" name="price" class="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent pl-10  pb-3" placeholder="Prix" />
                                     </div>
                                 </div>
 
@@ -116,4 +130,4 @@ function add() {
 
 }
 
-export default add;
+export default AddBien;
