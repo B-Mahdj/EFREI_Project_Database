@@ -1,11 +1,18 @@
 import { useState } from "react";
 import Axios from 'axios';
 
-
-
-
-
 function AddBien() {
+    const[proprio, setProprio] = useState("");
+    const[adresse, setAdresse] = useState("");
+    const[email, setEmail] = useState("");
+    const[type, setType] = useState("");
+    const[nbChambre, setNbChambre] = useState("");
+    const[etat, setEtat] = useState("");
+    const[date, setDate] = useState("");
+    const[prix, setPrix] = useState("");
+    const[nbGarage, setNbGarage] = useState("");
+    const[ville, setVille] = useState("");
+
 
     const[personneListe, setPersonneListe] = useState([]);
     Axios.get('http://localhost:3001/api/personne/', {
@@ -25,7 +32,7 @@ function AddBien() {
                     <form action="#">
                         <div class="flex flex-col mb-2">
                             <div class=" relative ">
-                                <select class="rounded-lg border-transparent flex-2 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" placeholder="Type">
+                                <select class="rounded-lg border-transparent flex-2 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent" name="p">
                                     <option disabled selected>Propriétaire</option>
                                     {personneListe.map((val, key) => {
                                         return <option>{val.id_personne + ". " + val.nom + " " + val.prenom}</option>
