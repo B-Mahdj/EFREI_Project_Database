@@ -13,11 +13,6 @@ function AddPersonne() {
             console.log("success create personne");
         });
     };
-    
-    const onSubmit = () => {
-        window.location.reload(false);
-    };
-
 
     return (
         <div class="flex justify-center items-center my-10">
@@ -25,7 +20,7 @@ function AddPersonne() {
                 <div class="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
                     Ajouter une nouvelle personne
                 </div>
-                <form onSubmit={onSubmit}>
+                <form>
                 <div class="p-6">
                     <div class="flex flex-col mb-2">
                             <div class=" relative ">

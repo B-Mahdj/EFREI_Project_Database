@@ -14,7 +14,6 @@ exports.getAllPersonne = (req, res, next) => {
 }
 
 exports.createPersonne = (req, res, next) => {
-    console.log(req.body)
     const nom = req.body.nom;
     const prenom = req.body.prenom;
     if (nom && prenom) {
