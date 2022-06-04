@@ -20,7 +20,7 @@ exports.createAdresse = (req, res, next) => {
     console.log(req);
     console.log(rue, ville, code_postal);
     if (rue && ville && code_postal) {
-        mysql.query('INSERT INTO Adresse VALUES (?, ?, ?)', [rue, ville, code_postal], (err, result) => {
+        mysql.query('INSERT INTO Adresse(rue, ville, code_postal) VALUES (?, ?, ?)', [rue, ville, code_postal], (err, result) => {
             if (!err) {
                 res.status(200).json({
                     message: 'Adresse créée !'

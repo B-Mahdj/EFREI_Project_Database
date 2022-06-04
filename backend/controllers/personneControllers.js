@@ -17,7 +17,7 @@ exports.createPersonne = (req, res, next) => {
     nom = req.query.nom;
     prenom = req.query.prenom;
     if (nom && prenom) {
-        mysql.query('INSERT INTO Personne VALUES (?, ?)', [nom, prenom], (err, result) => {
+        mysql.query('INSERT INTO Personne (nom, prenom) VALUES (?, ?)', [nom, prenom], (err, result) => {
             if (!err) {
                 res.status(200).json({
                     message: 'Personne créée !'
