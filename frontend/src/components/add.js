@@ -24,17 +24,8 @@ function AddBien() {
     const [superficie, setSuperficie] = useState(0);
 
     const addBien = () => {
-        console.log(proprio);
-        console.log(adresse);
-        console.log(type);
-        console.log(nbChambre);
-        console.log(etat);
-        console.log(date);
-        console.log(prix);
-        console.log(nbGarage);
-        console.log(superficie);
         Axios.post('http://localhost:3001/api/bien_immobilier/', {
-            proprio: proprio,
+            proprio: proprio.split('.')[0],
             adresse: adresse,
             type: type,
             nbChambre: nbChambre,

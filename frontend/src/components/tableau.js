@@ -1,4 +1,27 @@
-function tableau() {
+import { isValidElement, useEffect, useState } from "react";
+import Axios from 'axios';
+
+function Tableau() {
+
+    const [bienListe, setBienListe] = useState([]);
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/bien_immobilier/', {
+        }).then((response) => {
+            setBienListe(response.data);
+        });
+    }, []
+    )
+
+    const [personneListe, setPersonneListe] = useState([]);
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/personne/', {
+        }).then((response) => {
+            setPersonneListe(response.data);
+        });
+    }, []
+    )
 
     return (
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-10 mx-5">
@@ -20,44 +43,35 @@ function tableau() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            ...    </th>
-                        <td class="px-6 py-4">
-                            ...
-                        </td>
-                        <td class="px-6 py-4">
-                            ...
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="/voir/Karim" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Voir</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            ...    </th>
-                        <td class="px-6 py-4">
-                            ...
-                        </td>
-                        <td class="px-6 py-4">
-                            ...    </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="/voir/Ary" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Voir</a>
-                        </td>
-                    </tr>
-                    <tr class="bg-white dark:bg-gray-800">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            ...    </th>
-                        <td class="px-6 py-4">
-                            ...
-                        </td>
-                        <td class="px-6 py-4">
-                            ...
-                        </td>
-                        <td class="px-6 py-4 text-right">
-                            <a href="/voir/bilal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Voir</a>
-                        </td>
-                    </tr>
+                    {bienListe.map((val, key) => {
+                        let nom = "", prenom = "";
+                        personneListe.map((personne, key) => {
+                            if (personne.id_personne === val.id_proprietaire) {
+                                nom = personne.nom;
+                                prenom = personne.prenom;
+                            }
+                            return nom, prenom;
+                        })
+
+                        return (
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
+                                    {nom + " " + prenom}
+                                </th>
+                                <td class="px-6 py-4">
+                                    {val.adresse}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {val.type_bien}
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href={'/voir/' + val.id_bien + '/' + val.id_proprietaire + '/' +  nom + '/' + prenom} class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Voir</a>
+                                </td>
+                            </tr>
+                        );
+
+                    })}
+
                 </tbody>
             </table>
         </div>
@@ -66,4 +80,4 @@ function tableau() {
 
 }
 
-export default tableau;
+export default Tableau;

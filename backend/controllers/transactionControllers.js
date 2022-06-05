@@ -14,17 +14,18 @@ exports.getAllTransaction = (req, res, next) => {
 }
 
 exports.createTransaction = (req, res, next) => {
-    commission = req.query.commission;
-    prix_vente = req.query.prix_vente;
-    date_transac = req.query.date_transac;
-    id_client = req.query.id_client;
-    id_proprietaire = req.query.id_proprietaire;
-    if ( commission && prix_vente && date_transac && id_client && id_proprietaire) {
-        mysql.query('INSERT INTO Transaction VALUES (?, ?, ?, ?, ?)', [commission, prix_vente, date_transac, id_client, id_proprietaire], (err, result) => {
+    const commission = req.body.comission;
+    const id_bien = req.body.bien;
+    const date_transac = req.body.date;
+    const id_client = req.body.client;
+    const id_proprietaire = req.body.proprio;
+    if ( commission && id_bien && date_transac && id_client && id_proprietaire) {
+        mysql.query('INSERT INTO Transaction VALUES (?, ?, ?, ?, ?)', [commission, date_transac, id_client, id_proprietaire, id_bien], (err, result) => {
             if (!err) {
                 res.status(200).json({
                     message: 'Transaction créée !'
                 });
+                console.log("Transaction créée");
             }
             else {
                 res.status(500).json(err);
@@ -39,7 +40,7 @@ exports.createTransaction = (req, res, next) => {
 }
 
 exports.getCountFromTransaction = (req, res, next) => {
-    mysql.query('SELECT COUNT(*) FROM Transaction', (err, rows, fields) => {
+    mysql.query('SELECT COUNT(*) as NB FROM Transaction', (err, rows, fields) => {
         if (!err) {
             res.status(200).json(rows);
             console.log(rows);
@@ -53,7 +54,7 @@ exports.getCountFromTransaction = (req, res, next) => {
 
 
 exports.getSumPriceFromTransaction = (req, res, next) => {
-    mysql.query('SELECT SUM(prix_vente) FROM Transaction', (err, rows, fields) => {
+    mysql.query('SELECT SUM(x.prix_vente) as total FROM (SELECT prix_vente FROM Bien_immobilier b, Transaction t where t.id_bien = b.id_bien) x', (err, rows, fields) => {
         if (!err) {
             res.status(200).json(rows);
             console.log(rows);
@@ -66,7 +67,7 @@ exports.getSumPriceFromTransaction = (req, res, next) => {
 }
 
 exports.getSumOfCommission = (req, res, next) => {
-    mysql.query('SELECT SUM(commission) FROM Transaction', (err, rows, fields) => {
+    mysql.query('SELECT SUM(commission) as com FROM Transaction', (err, rows, fields) => {
         if (!err) {
             res.status(200).json(rows);
             console.log(rows);
@@ -79,7 +80,7 @@ exports.getSumOfCommission = (req, res, next) => {
 }
 
 exports.getDateLastTransaction = (req, res, next) => {
-    mysql.query('SELECT date_transac FROM Transaction ORDER BY date_transac DESC LIMIT 1', (err, rows, fields) => {
+    mysql.query('SELECT DATE_FORMAT(date_transac, "%d/%m/%Y") as date FROM Transaction ORDER BY date_transac DESC LIMIT 1', (err, rows, fields) => {
         if (!err) {
             res.status(200).json(rows);
             console.log(rows);

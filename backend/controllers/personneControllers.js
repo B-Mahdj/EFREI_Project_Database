@@ -4,7 +4,6 @@ exports.getAllPersonne = (req, res, next) => {
     mysql.query('SELECT * FROM Personne', (err, rows, fields) => {
         if (!err) {
             res.status(200).json(rows);
-            console.log(rows);
         }
         else {
             res.status(500).json(err);
@@ -38,8 +37,11 @@ exports.createPersonne = (req, res, next) => {
 }
 
 exports.getPersonneById = (req, res, next) => {
-    id = req.query.id;
+    const id = parseInt(req.query.id);
+    console.log(id);
     if (id) {
+        console.log("ok");
+
         mysql.query('SELECT * FROM Personne WHERE id_personne = ?', [id], (err, rows, fields) => {
             if (!err) {
                 res.status(200).json(rows);

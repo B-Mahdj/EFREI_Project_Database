@@ -22,7 +22,8 @@ function App() {
               <Route path="/liste" element={<Liste />} />
               <Route path="/add" element={<Add />} />
               <Route path="/vente" element={<Ventes />} />
-              <Route path="/voir/:name" element={<Voir />} />
+              <Route path="/voir/:id/:idprop/:nom/:prenom" element={<Voir />} />
+              <Route path="/voirVentes/:id/:idprop/:nom/:prenom" element={<VoirVente />} />
               <Route path="/addPersonne" element={<PersonneAdd />} />
               <Route path="/visite" element={<CreerVisite />} />
 
@@ -74,7 +75,18 @@ const Voir = () => {
     <div>
       <Banner name="liste"></Banner>
       <Tableau></Tableau>
-      <Modal name={params.name}/>
+      <Modal id={params.id} idprop={params.idprop} nom={params.nom} prenom={params.prenom}/>
+    </div>
+  );
+};
+
+const VoirVente = () => {
+  let params = useParams();
+  return (
+    <div>
+      <Banner name="vente"></Banner>
+      <Vente></Vente>
+      <Modal id={params.id} idprop={params.idprop} nom={params.nom} prenom={params.prenom}/>
     </div>
   );
 };
