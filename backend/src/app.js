@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const bienImmobilierRoutes = require('../routes/bienImmobilierRoutes');
 const adresseRoutes = require('../routes/adresseRoutes');
 const garageRoutes = require('../routes/garageRoutes');
@@ -8,6 +9,7 @@ const transactionRoutes = require('../routes/transactionRoutes');
 const visiteRoutes = require('../routes/visiteRoutes');
 
 app.use(express.json());
+app.use(cors());
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

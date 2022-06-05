@@ -6,6 +6,8 @@ import Ajout from './add';
 import Modal from './modal';
 import Vente from './vente';
 import Dashboard from './dashboard';
+import AjoutPersonne from './addPersonne';
+import Visite from './visite';
 
 import { BrowserRouter as Router, Routes, Route, Link, useParams } from 'react-router-dom';
 
@@ -20,7 +22,11 @@ function App() {
               <Route path="/liste" element={<Liste />} />
               <Route path="/add" element={<Add />} />
               <Route path="/vente" element={<Ventes />} />
-              <Route path="/voir/:name" element={<Voir />} />
+              <Route path="/voir/:id/:idprop/:nom/:prenom" element={<Voir />} />
+              <Route path="/voirVentes/:id/:idprop/:nom/:prenom" element={<VoirVente />} />
+              <Route path="/addPersonne" element={<PersonneAdd />} />
+              <Route path="/visite" element={<CreerVisite />} />
+
             </Routes>
           </div>
         </Router>
@@ -69,7 +75,18 @@ const Voir = () => {
     <div>
       <Banner name="liste"></Banner>
       <Tableau></Tableau>
-      <Modal name={params.name}/>
+      <Modal id={params.id} idprop={params.idprop} nom={params.nom} prenom={params.prenom}/>
+    </div>
+  );
+};
+
+const VoirVente = () => {
+  let params = useParams();
+  return (
+    <div>
+      <Banner name="vente"></Banner>
+      <Vente></Vente>
+      <Modal id={params.id} idprop={params.idprop} nom={params.nom} prenom={params.prenom}/>
     </div>
   );
 };
@@ -79,6 +96,24 @@ const Ventes= () => {
     <div>
       <Banner name="vente"></Banner>
       <Vente/>
+    </div>
+  );
+};
+
+const PersonneAdd = () => {
+  return (
+    <div>
+      <Banner name="addpersonne"></Banner>
+      <AjoutPersonne/>
+    </div>
+  );
+};
+
+const CreerVisite = () => {
+  return (
+    <div>
+      <Banner name="visite"></Banner>
+      <Visite/>
     </div>
   );
 };

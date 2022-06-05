@@ -1,5 +1,49 @@
+import { isValidElement, useEffect, useState } from "react";
+import Axios from 'axios';
 
-function dashboard() {
+function Dashboard() {
+
+    const [nbVentes, setNbVentes] = useState(0);
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/transaction/count', {
+        }).then((response) => {
+            setNbVentes(response.data[0].NB);
+        });
+    }, []
+    )
+
+    const [total, setTotal] = useState(0);
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/transaction/sumPrice', {
+        }).then((response) => {
+            setTotal(response.data[0].total);
+        });
+    }, []
+    )
+
+    const [com, setCom] = useState(0);
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/transaction/sumCommission', {
+        }).then((response) => {
+            setCom(response.data[0].com);
+        });
+    }, []
+    )
+
+    const [last, setLast] = useState("");
+
+    useEffect(() => {
+        Axios.get('http://localhost:3001/api/transaction/derniere_vente', {
+        }).then((response) => {
+            setLast(response.data[0].date);
+        });
+    }, []
+    )
+    
+
     return (
         <div class="">
             <div class="grid grid-cols-12 gap-6 mt-48 lg:mx-52">
@@ -16,7 +60,7 @@ function dashboard() {
                         </div>
                         <div class="ml-2 w-full flex-1">
                             <div>
-                                <div class="mt-3 text-3xl font-bold leading-8">45</div>
+                                <div class="mt-3 text-3xl font-bold leading-8">{nbVentes}</div>
 
                                 <div class="mt-1 text-base text-gray-600">Nombre vente</div>
                             </div>
@@ -39,7 +83,7 @@ function dashboard() {
                         </div>
                         <div class="ml-2 w-full flex-1">
                             <div>
-                                <div class="mt-3 text-3xl font-bold leading-8">15000000</div>
+                                <div class="mt-3 text-3xl font-bold leading-8">{total}</div>
 
                                 <div class="mt-1 text-base text-gray-600">Total Vente</div>
                             </div>
@@ -59,9 +103,9 @@ function dashboard() {
                         </div>
                         <div class="ml-2 w-full flex-1">
                             <div>
-                                <div class="mt-3 text-3xl font-bold leading-8">450000</div>
+                                <div class="mt-3 text-3xl font-bold leading-8">{com}</div>
 
-                                <div class="mt-1 text-base text-gray-600">Total comission</div>
+                                <div class="mt-1 text-base text-gray-600">Total commission</div>
                             </div>
                         </div>
                     </div>
@@ -80,7 +124,7 @@ function dashboard() {
                         </div>
                         <div class="ml-2 w-full flex-1">
                             <div>
-                                <div class="mt-3 text-3xl font-bold leading-8">25/26/2022</div>
+                                <div class="mt-3 text-3xl font-bold leading-8">{last}</div>
 
                                 <div class="mt-1 text-base text-gray-600">Dernière vente</div>
                             </div>
@@ -93,4 +137,4 @@ function dashboard() {
     );
 }
 
-export default dashboard;
+export default Dashboard;

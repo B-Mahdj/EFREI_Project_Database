@@ -14,14 +14,16 @@ exports.getAllVisite = (req, res, next) => {
 }
 
 exports.createVisite = (req, res, next) => {
-    date_visite = req.query.date_visite;
-    id_client = req.query.id_client;
+    const date_visite = req.body.date;
+    const id_client = req.body.proprio;
+    const id_bien = req.body.bien;
     if(date_visite && id_client){
-        mysql.query('INSERT INTO Visite VALUES (?, ?)', [date_visite, id_client], (err, result) => {
+        mysql.query('INSERT INTO Visite VALUES (?, ?, ?)', [date_visite, id_client, id_bien], (err, result) => {
             if (!err) {
                 res.status(200).json({
                     message: 'Visite créée !'
                 });
+                console.log('Visite créée !');
             }
             else {
                 res.status(500).json(err);
