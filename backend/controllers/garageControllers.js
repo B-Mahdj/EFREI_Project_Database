@@ -14,11 +14,10 @@ exports.getAllGarage = (req, res, next) => {
 }
 
 exports.createGarage = (req, res, next) => {
-    num = req.query.num;
     id_adresse = req.query.id_adresse;
     id_bien_immobilier = req.query.id_bien_immobilier;
-    if (num && id_adresse && id_bien_immobilier) {
-        mysql.query('INSERT INTO Garage VALUES (?, ?, ?)', [num, id_adresse, id_bien_immobilier], (err, result) => {
+    if (id_adresse && id_bien_immobilier) {
+        mysql.query('INSERT INTO Garage (id_adresse, id_bien_immobilier) VALUES (?, ?)', [id_adresse, id_bien_immobilier], (err, result) => {
             if (!err) {
                 res.status(200).json({
                     message: 'Garage créé !'
@@ -37,7 +36,7 @@ exports.createGarage = (req, res, next) => {
 }
 
 exports.getGarageById = (req, res, next) => {
-    num = req.query.num;
+    num = req.query.id;
     if (num) {
         mysql.query('SELECT * FROM Garage WHERE num = ?', [num], (err, rows, fields) => {
             if (!err) {
@@ -58,7 +57,7 @@ exports.getGarageById = (req, res, next) => {
 }
 
 exports.updateGarageById = (req, res, next) => {
-    num = req.query.num;
+    num = req.query.id;
     id_adresse = req.query.id_adresse;
     id_bien_immobilier = req.query.id_bien_immobilier;
     if (num && id_adresse && id_bien_immobilier) {
@@ -81,7 +80,7 @@ exports.updateGarageById = (req, res, next) => {
 }
 
 exports.deleteGarageById = (req, res, next) => {
-    num = req.query.num;
+    num = req.query.id;
     if (num) {
         mysql.query('DELETE FROM Garage WHERE num = ?', [num], (err, result) => {
             if (!err) {
